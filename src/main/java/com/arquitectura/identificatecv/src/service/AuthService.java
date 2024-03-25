@@ -2,6 +2,9 @@ package com.arquitectura.identificatecv.src.service;
 
 import com.arquitectura.identificatecv.src.domain.request.UserRequest;
 import com.arquitectura.identificatecv.src.domain.request.VerificationAccountRequest;
+import com.arquitectura.identificatecv.src.domain.response.LoginResponse;
+import com.arquitectura.identificatecv.src.domain.response.SingUpResponse;
+import com.arquitectura.identificatecv.src.domain.response.VerificationAccountResponse;
 import org.springframework.stereotype.Service;
 
 import com.arquitectura.identificatecv.src.infrastucture.security.CognitoAuthService;
@@ -15,28 +18,28 @@ public class AuthService {
         this.cognitoAuthService = service;
     }
 
-    public String login(UserRequest userRequest){
+    public LoginResponse login(UserRequest userRequest){
         try {
-            return cognitoAuthService.login(userRequest).getAuthenticationResult().getAccessToken();
+            return new LoginResponse(cognitoAuthService.login(userRequest).getAuthenticationResult().getAccessToken());
         } catch (Exception e) {
-           throw e;
+            throw new RuntimeException(e);
         }
     }
 
-    public boolean singUp(UserRequest userRequest){
+    public SingUpResponse singUp(UserRequest userRequest){
         try {
-            return cognitoAuthService.singUp(userRequest).isUserConfirmed();
-        } catch (Exception e){
-            throw e;
+            return new SingUpResponse(cognitoAuthService.singUp(userRequest).getUserSub());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public boolean verificationAccount(VerificationAccountRequest verificationAccountRequest){
+    public VerificationAccountResponse verificationAccount(VerificationAccountRequest verificationAccountRequest){
         try {
             cognitoAuthService.verificationAccount(verificationAccountRequest);
-            return true;
-        }catch (Exception e){
-            throw e;
+            return new VerificationAccountResponse(true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

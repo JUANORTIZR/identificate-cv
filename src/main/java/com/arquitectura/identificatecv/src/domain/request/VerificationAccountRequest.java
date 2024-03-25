@@ -1,5 +1,6 @@
 package com.arquitectura.identificatecv.src.domain.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
