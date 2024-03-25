@@ -9,6 +9,7 @@ import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.model.*;
 import com.arquitectura.identificatecv.src.config.CognitoConfiguration;
 import com.arquitectura.identificatecv.src.domain.request.UserRequest;
+import com.arquitectura.identificatecv.src.domain.request.VerificationAccountRequest;
 import com.arquitectura.identificatecv.src.utils.HmacCalculator;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,16 @@ public class CognitoAuthService {
         return identityProvider.signUp(signUpRequest);
     }
 
+    public ConfirmSignUpResult verificationAccount(VerificationAccountRequest verificationAccountRequest){
+        ConfirmSignUpRequest request = new ConfirmSignUpRequest();
+        request.withConfirmationCode(verificationAccountRequest.getCode())
+                .withClientId(cognitoConfiguration.getClientId())
+                .withUsername(verificationAccountRequest.getNickname())
+                .withSecretHash(Objects.requireNonNull(HmacCalculator.calculateSecretHash(verificationAccountRequest.getNickname(),
+                        cognitoConfiguration.getClientId(), cognitoConfiguration.getClientSecret())));
+        return identityProvider.confirmSignUp(request);
+    }
+
     public InitiateAuthResult login(UserRequest userRequest) {
         InitiateAuthRequest initiateAuthRequest = new InitiateAuthRequest();
         initiateAuthRequest.withAuthFlow(AuthFlowType.USER_PASSWORD_AUTH)
@@ -58,6 +69,8 @@ public class CognitoAuthService {
 
         return this.identityProvider.initiateAuth(initiateAuthRequest);
     }
+
+
 
     /*
     public void changePassword(String newPassword, String username){

@@ -1,5 +1,6 @@
 package com.arquitectura.identificatecv.src.controller;
 
+import com.arquitectura.identificatecv.src.domain.request.VerificationAccountRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,11 @@ public class LoginController {
     @PostMapping("/sing-up")
     public ResponseEntity<Boolean> singUp(@RequestBody UserRequest userRequest) {
         return ResponseEntity.ok().body(authService.singUp(userRequest));
+    }
+
+    @PostMapping("/verification-account")
+    public ResponseEntity<Boolean> verificationAccount(@RequestBody VerificationAccountRequest verificationAccountRequest){
+        return ResponseEntity.ok().body(authService.verificationAccount(verificationAccountRequest));
     }
 
     

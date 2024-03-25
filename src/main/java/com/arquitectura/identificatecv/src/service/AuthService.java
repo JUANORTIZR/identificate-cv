@@ -1,6 +1,7 @@
 package com.arquitectura.identificatecv.src.service;
 
 import com.arquitectura.identificatecv.src.domain.request.UserRequest;
+import com.arquitectura.identificatecv.src.domain.request.VerificationAccountRequest;
 import org.springframework.stereotype.Service;
 
 import com.arquitectura.identificatecv.src.infrastucture.security.CognitoAuthService;
@@ -22,10 +23,19 @@ public class AuthService {
         }
     }
 
-    public Boolean singUp(UserRequest userRequest){
+    public boolean singUp(UserRequest userRequest){
         try {
             return cognitoAuthService.singUp(userRequest).isUserConfirmed();
         } catch (Exception e){
+            throw e;
+        }
+    }
+
+    public boolean verificationAccount(VerificationAccountRequest verificationAccountRequest){
+        try {
+            cognitoAuthService.verificationAccount(verificationAccountRequest);
+            return true;
+        }catch (Exception e){
             throw e;
         }
     }
