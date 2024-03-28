@@ -13,20 +13,11 @@ import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder
 @Configuration
 public class CognitoConfiguration {
 
-    @Value("${aws.cognito.user-pool-id}")
-    private String userPoolId;
-
     @Value("${aws.cognito.client-id}")
     private String clientId;
 
     @Value("${aws.cognito.client-secret}")
     private String clientSecret;
-
-    @Value("${aws.cognito.username-field}")
-    private String usernameField;
-
-    @Value("${aws.cognito.groups-field}")
-    private String groupsField;
 
     @Value("${cloud.aws.region}")
     private String region;
@@ -37,17 +28,6 @@ public class CognitoConfiguration {
     @Value("${cloud.aws.credentials.secret-key}")
     private String awsSecretKey;
 
-    @Value("${jwt.header.string}")
-    private String httpHeader;
-
-    @Value("${jwt.token.prefix}")
-    private String tokenPrefix;
-
-    @Value("${aws.cognito.jwt.use}")
-    private String jwtUse;
-
-    @Value("${aws.cognito.issuer.url}")
-    private String issuerUrl;
 
     @Bean
     public AWSCognitoIdentityProvider awsCognitoIdentityProvider() {
@@ -55,10 +35,6 @@ public class CognitoConfiguration {
                 .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(awsAccessKey, awsSecretKey)))
                 .withRegion(this.region)
                 .build();
-    }
-
-    public String getUserPoolId() {
-        return userPoolId;
     }
 
     public String getClientId() {
@@ -69,27 +45,4 @@ public class CognitoConfiguration {
         return clientSecret;
     }
 
-    public String getUsernameField() {
-        return usernameField;
-    }
-
-    public String getGroupsField() {
-        return groupsField;
-    }
-
-    public String getHttpHeader() {
-        return httpHeader;
-    }
-
-    public String getTokenPrefix() {
-        return tokenPrefix;
-    }
-
-    public String getIssuerUrl() {
-        return String.format(issuerUrl, region, userPoolId);
-    }
-
-    public String getJwtUse() {
-        return jwtUse;
-    }
 }

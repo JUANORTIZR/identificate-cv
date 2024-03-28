@@ -70,20 +70,10 @@ public class CognitoAuthService {
         return this.identityProvider.initiateAuth(initiateAuthRequest);
     }
 
-
-
-    /*
-    public void changePassword(String newPassword, String username){
-      // ChangePasswordRequest request = new ChangePasswordRequest().withAccessToken()
-              //  ForgotPasswordRequest request = new ForgotPasswordRequest()
-
-        SignUpRequest request = new SignUpRequest().withUserAttributes()
-    ConfirmForgotPasswordRequest request = new ConfirmForgotPasswordRequest().
-        AdminSetUserPasswordRequest request = new AdminSetUserPasswordRequest().withPassword(newPassword).
-                withPermanent(true).withUsername(username);
-       identityProvider.adminSetUserPassword(request);
+    public GetUserResult getUserDataByToken(String token){
+        GetUserRequest request = new GetUserRequest();
+        request.withAccessToken(token);
+        return this.identityProvider.getUser(request);
     }
-*/
-
 
 }

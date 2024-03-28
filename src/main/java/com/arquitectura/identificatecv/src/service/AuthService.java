@@ -1,5 +1,6 @@
 package com.arquitectura.identificatecv.src.service;
 
+import com.amazonaws.services.cognitoidp.model.AttributeType;
 import com.arquitectura.identificatecv.src.domain.request.UserRequest;
 import com.arquitectura.identificatecv.src.domain.request.VerificationAccountRequest;
 import com.arquitectura.identificatecv.src.domain.response.LoginResponse;
@@ -8,6 +9,8 @@ import com.arquitectura.identificatecv.src.domain.response.VerificationAccountRe
 import org.springframework.stereotype.Service;
 
 import com.arquitectura.identificatecv.src.infrastucture.security.CognitoAuthService;
+
+import java.util.List;
 
 @Service
 public class AuthService {
@@ -20,7 +23,9 @@ public class AuthService {
 
     public LoginResponse login(UserRequest userRequest){
         try {
-            return new LoginResponse(cognitoAuthService.login(userRequest).getAuthenticationResult().getAccessToken());
+            String tokenAccess = cognitoAuthService.login(userRequest).getAuthenticationResult().getAccessToken();
+            List<AttributeType> attributes = cognitoAuthService.getUserDataByToken(tokenAccess).getUserAttributes();
+            return new LoginResponse(tokenAccess, attributes);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
