@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  identificate-cv:
+    build: .
+    ports:
+      - "9812:9812"
+    volumes:
+      - ./target:/app/target
