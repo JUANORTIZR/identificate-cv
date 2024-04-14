@@ -1,5 +1,6 @@
 package com.arquitectura.identificatecv.src.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.cognitoidp.model.AttributeType;
 import com.arquitectura.identificatecv.src.domain.request.UserRequest;
 import com.arquitectura.identificatecv.src.domain.request.VerificationAccountRequest;
@@ -26,7 +27,7 @@ public class AuthService {
             String tokenAccess = cognitoAuthService.login(userRequest).getAuthenticationResult().getAccessToken();
             List<AttributeType> attributes = cognitoAuthService.getUserDataByToken(tokenAccess).getUserAttributes();
             return new LoginResponse(tokenAccess, attributes);
-        } catch (Exception e) {
+        } catch (AmazonServiceException e) {
             throw new RuntimeException(e);
         }
     }
