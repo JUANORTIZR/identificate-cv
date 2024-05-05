@@ -1,4 +1,4 @@
-package com.arquitectura.identificatecv.src.domain.request;
+package com.arquitectura.identificatecv.domain.request;
 
 import lombok.Data;
 

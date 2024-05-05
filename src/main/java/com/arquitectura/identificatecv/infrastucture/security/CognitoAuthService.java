@@ -1,4 +1,4 @@
-package com.arquitectura.identificatecv.src.infrastucture.security;
+package com.arquitectura.identificatecv.infrastucture.security;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,10 @@ import java.util.Objects;
 
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.model.*;
-import com.arquitectura.identificatecv.src.config.CognitoConfiguration;
-import com.arquitectura.identificatecv.src.domain.request.UserRequest;
-import com.arquitectura.identificatecv.src.domain.request.VerificationAccountRequest;
-import com.arquitectura.identificatecv.src.utils.HmacCalculator;
+import com.arquitectura.identificatecv.config.CognitoConfiguration;
+import com.arquitectura.identificatecv.domain.request.UserRequest;
+import com.arquitectura.identificatecv.domain.request.VerificationAccountRequest;
+import com.arquitectura.identificatecv.utils.HmacCalculator;
 import org.springframework.stereotype.Service;
 
 @Service

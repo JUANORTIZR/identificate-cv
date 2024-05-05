@@ -1,15 +1,15 @@
-package com.arquitectura.identificatecv.src.service;
+package com.arquitectura.identificatecv.service;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.cognitoidp.model.AttributeType;
-import com.arquitectura.identificatecv.src.domain.request.UserRequest;
-import com.arquitectura.identificatecv.src.domain.request.VerificationAccountRequest;
-import com.arquitectura.identificatecv.src.domain.response.LoginResponse;
-import com.arquitectura.identificatecv.src.domain.response.SingUpResponse;
-import com.arquitectura.identificatecv.src.domain.response.VerificationAccountResponse;
+import com.arquitectura.identificatecv.domain.request.UserRequest;
+import com.arquitectura.identificatecv.domain.request.VerificationAccountRequest;
+import com.arquitectura.identificatecv.domain.response.LoginResponse;
+import com.arquitectura.identificatecv.domain.response.SingUpResponse;
+import com.arquitectura.identificatecv.domain.response.VerificationAccountResponse;
 import org.springframework.stereotype.Service;
 
-import com.arquitectura.identificatecv.src.infrastucture.security.CognitoAuthService;
+import com.arquitectura.identificatecv.infrastucture.security.CognitoAuthService;
 
 import java.util.List;
 

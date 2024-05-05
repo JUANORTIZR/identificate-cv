@@ -1,4 +1,4 @@
-package com.arquitectura.identificatecv.src.config;
+package com.arquitectura.identificatecv.config;
 
 
 import org.springframework.http.HttpStatus;

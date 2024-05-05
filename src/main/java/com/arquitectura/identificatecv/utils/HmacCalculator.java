@@ -1,4 +1,4 @@
-package com.arquitectura.identificatecv.src.utils;
+package com.arquitectura.identificatecv.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;

@@ -1,4 +1,4 @@
-package com.arquitectura.identificatecv.src.domain.response;
+package com.arquitectura.identificatecv.domain.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -7,3 +7,4 @@ services:
       - "9812:9812"
     volumes:
       - ./target:/app/target
+    hostname: identificate_cv
