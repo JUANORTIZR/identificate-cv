@@ -6,13 +6,9 @@ import com.arquitectura.identificatecv.domain.request.VerificationAccountRequest
 import com.arquitectura.identificatecv.domain.response.LoginResponse;
 import com.arquitectura.identificatecv.domain.response.SingUpResponse;
 import com.arquitectura.identificatecv.domain.response.VerificationAccountResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -42,5 +38,11 @@ public class LoginController {
         return ResponseEntity.ok().body(authService.verificationAccount(verificationAccountRequest));
     }
 
-    
+    @PatchMapping("/resend-verification")
+    public ResponseEntity verificationAccount(@RequestParam String Nickname){
+        return authService.resendCodeVerification(Nickname);
+    }
+
+
+
 }

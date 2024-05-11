@@ -46,6 +46,15 @@ public class CognitoAuthService {
         return identityProvider.signUp(signUpRequest);
     }
 
+    public ResendConfirmationCodeResult resendCode(String nickname){
+        ResendConfirmationCodeRequest request = new ResendConfirmationCodeRequest();
+        request.withClientId(cognitoConfiguration.getClientId())
+               .withUsername(nickname)
+               .withSecretHash(Objects.requireNonNull(HmacCalculator.calculateSecretHash(nickname,
+                        cognitoConfiguration.getClientId(), cognitoConfiguration.getClientSecret())));
+        return identityProvider.resendConfirmationCode(request);
+    }
+
     public ConfirmSignUpResult verificationAccount(VerificationAccountRequest verificationAccountRequest){
         ConfirmSignUpRequest request = new ConfirmSignUpRequest();
         request.withConfirmationCode(verificationAccountRequest.getCode())

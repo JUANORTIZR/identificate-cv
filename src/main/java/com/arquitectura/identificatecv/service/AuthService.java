@@ -32,6 +32,7 @@ public class AuthService {
             List<AttributeType> attributes = cognitoAuthService.getUserDataByToken(tokenAccess).getUserAttributes();
             return ResponseEntity.ok().body(new LoginResponse(tokenAccess, attributes));
         }catch (UserNotConfirmedException e){
+            cognitoAuthService.resendCode(userRequest.getNickname());
             throw e;
         }
         catch (AmazonServiceException e) {
@@ -54,6 +55,16 @@ public class AuthService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ResponseEntity resendCodeVerification(String nickname){
+        try {
+            cognitoAuthService.resendCode(nickname);
+            return ResponseEntity.ok().body(null);
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 
