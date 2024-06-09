@@ -21,7 +21,7 @@ public class CognitoAuthService {
     public static final String PHONE_NUMBER = "phone_number";
     public static final String NAME = "name";
     public static final String NICKNAME = "nickname";
-    public static final String ROL = "Role";
+    public static final String ROL = "custom:Role";
     private final AWSCognitoIdentityProvider identityProvider;
 
     private final CognitoConfiguration cognitoConfiguration;
