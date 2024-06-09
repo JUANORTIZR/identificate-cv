@@ -12,6 +12,7 @@ import com.arquitectura.identificatecv.domain.request.UserRequest;
 import com.arquitectura.identificatecv.domain.request.VerificationAccountRequest;
 import com.arquitectura.identificatecv.utils.HmacCalculator;
 import org.springframework.stereotype.Service;
+import com.arquitectura.identificatecv.utils.RolNameEnum;
 
 @Service
 public class CognitoAuthService {
@@ -20,6 +21,7 @@ public class CognitoAuthService {
     public static final String PHONE_NUMBER = "phone_number";
     public static final String NAME = "name";
     public static final String NICKNAME = "nickname";
+    public static final String ROL = "Role";
     private final AWSCognitoIdentityProvider identityProvider;
 
     private final CognitoConfiguration cognitoConfiguration;
@@ -37,6 +39,7 @@ public class CognitoAuthService {
         attributeTypes.add(new AttributeType().withName(NAME).withValue(userRequest.getName()));
         attributeTypes.add(new AttributeType().withName(EMAIL).withValue(userRequest.getEmail()));
         attributeTypes.add(new AttributeType().withName(PHONE_NUMBER).withValue(userRequest.getPhone_number()));
+        attributeTypes.add(new AttributeType().withName(ROL).withValue(RolNameEnum.ROL_BASE.toString()));
         signUpRequest.withClientId(cognitoConfiguration.getClientId())
                 .withUsername(userRequest.getNickname())
                 .withPassword(userRequest.getPassword())
