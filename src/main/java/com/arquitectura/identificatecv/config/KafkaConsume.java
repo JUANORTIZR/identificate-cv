@@ -18,6 +18,9 @@ public class KafkaConsume {
     @Autowired
     private CognitoAuthService cognitoAuthService;
 
+    @Autowired
+    private MessageProducer message;
+
     @KafkaListener(topics = "toCreate", groupId = "ConsumerGroup1")
     public void listen(String message) {
         try{
@@ -26,7 +29,7 @@ public class KafkaConsume {
             cognitoAuthService.singUp(UserRequest, RolNameEnum.ROL_DOMICILIARY.toString());
         }
         catch (Exception e){
-            log.info("error "+e.getMessage());
+            this.message.sendMessage("error "+e.getMessage());
         }
     }
 
@@ -38,7 +41,7 @@ public class KafkaConsume {
             cognitoAuthService.changeRolCompany(UserRequest);
         }
         catch (Exception e){
-            log.info("error "+e.getMessage());
+            this.message.sendMessage("error "+e.getMessage());
         }
     }
 

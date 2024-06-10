@@ -7,4 +7,12 @@ services:
       - "9812:9812"
     volumes:
       - ./target:/app/target
+    environment:
+      - ACCESS_KEY=AKIA4MTWKCBYRROPE6F2
+      - CLIENT_ID=1e7d3gb8be6ivdt3u38pn79a1v
+      - CLIENT_SECRET=1le7tckkaorpsma7135s3b3s84nf2eb75bfbctakb75fmqs4ct4d
+      - SECRET_KEY=PDTuBM7aeDiJtysXoNoDPpLir2NRfYSuqB6bxHUV
+      - POOL_ID=us-west-2_yiOd0quvg
+      - KAFKA_URL=52.39.113.119:9093
+      - KAFKA_TOPIC=prueba
     hostname: identificate_cv
