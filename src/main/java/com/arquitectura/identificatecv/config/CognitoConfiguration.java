@@ -22,6 +22,9 @@ public class CognitoConfiguration {
     @Value("${cloud.aws.region}")
     private String region;
 
+    @Value("${aws.cognito.pool-id}")
+    private String poolId;
+
     @Value("${cloud.aws.credentials.access-key}")
     private String awsAccessKey;
 
@@ -44,5 +47,7 @@ public class CognitoConfiguration {
     public String getClientSecret() {
         return clientSecret;
     }
+
+    public String getPoolId() { return  poolId; }
 
 }

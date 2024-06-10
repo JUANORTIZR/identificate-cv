@@ -32,14 +32,14 @@ public class CognitoAuthService {
         this.cognitoConfiguration = cognitoConfiguration;
     }
 
-    public SignUpResult singUp(UserRequest userRequest){
+    public SignUpResult singUp(UserRequest userRequest,String userRol){
         SignUpRequest signUpRequest = new SignUpRequest();
         List<AttributeType> attributeTypes = new ArrayList<>();
         attributeTypes.add(new AttributeType().withName(NICKNAME).withValue(userRequest.getNickname()));
         attributeTypes.add(new AttributeType().withName(NAME).withValue(userRequest.getName()));
         attributeTypes.add(new AttributeType().withName(EMAIL).withValue(userRequest.getEmail()));
         attributeTypes.add(new AttributeType().withName(PHONE_NUMBER).withValue(userRequest.getPhone_number()));
-        attributeTypes.add(new AttributeType().withName(ROL).withValue(RolNameEnum.ROL_BASE.toString()));
+        attributeTypes.add(new AttributeType().withName(ROL).withValue(userRol));
         signUpRequest.withClientId(cognitoConfiguration.getClientId())
                 .withUsername(userRequest.getNickname())
                 .withPassword(userRequest.getPassword())
@@ -47,6 +47,10 @@ public class CognitoAuthService {
                 .withSecretHash(Objects.requireNonNull(HmacCalculator.calculateSecretHash(userRequest.getNickname(),
                         cognitoConfiguration.getClientId(), cognitoConfiguration.getClientSecret())));
         return identityProvider.signUp(signUpRequest);
+    }
+
+    public SignUpResult singUp(UserRequest userRequest){
+        return this.singUp(userRequest,RolNameEnum.ROL_BASE.toString());
     }
 
     public ResendConfirmationCodeResult resendCode(String nickname){
@@ -87,5 +91,16 @@ public class CognitoAuthService {
         request.withAccessToken(token);
         return this.identityProvider.getUser(request);
     }
+
+    public boolean changeRolCompany(UserRequest userRequest){
+        AdminUpdateUserAttributesRequest request = new AdminUpdateUserAttributesRequest();
+        List<AttributeType> attributeTypes = new ArrayList<>();
+        attributeTypes.add(new AttributeType().withName(ROL).withValue(RolNameEnum.ROL_COMPANY.toString()));
+        request.withUserPoolId(cognitoConfiguration.getPoolId()).withUsername(userRequest.getNickname()).withUserAttributes(attributeTypes);
+        identityProvider.adminUpdateUserAttributes(request);
+        return true;
+    }
+
+
 
 }
